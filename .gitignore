@@ -1,5 +1,11 @@
-.DS_Store
 node_modules/
+.next/
+out/
+dist/
+*.tsbuildinfo
+.env*
+!.env.example
+.DS_Store
 *.tar.gz
 *.zip
-!dist/aura-source.zip
+!public/aura-source.zip

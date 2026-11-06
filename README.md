@@ -1,41 +1,59 @@
 # AURA — Creative Studio
 
-An English, left-to-right website for AURA, a conceptual advertising and branding studio. It combines glass surfaces, original SVG illustrations, subtle animation, and a responsive layout.
+An English, left-to-right marketing website for a conceptual advertising and branding studio, built with Next.js 16, React 19, TypeScript, and the App Router. The design combines glass surfaces, original SVG artwork, responsive layouts, and accessible motion controls.
 
-## Run locally
+## Development
 
-No dependency installation or build step is required:
+Requires Node.js 20.9 or newer and npm. Install the locked dependencies, then start the development server:
 
 ```sh
-python3 -m http.server 4173 --directory dist
+npm ci
+npm run dev
 ```
 
-Then open `http://localhost:4173`.
+Open `http://localhost:3000`.
 
-## Features
+## Build and run
 
-- Desktop navigation and a mobile menu, studio introduction, four services, filterable concept projects, and project detail dialogs
-- A collaboration process and frequently asked questions
-- A validated form to download or copy an English project brief
-- Scroll reveals, a floating sculpture, a moving text strip, rotating decorations, and subtle pointer effects on cards
-- System `prefers-reduced-motion` support and a manual animation toggle
-- Local fonts and illustrations, with no analytics or external asset requests from the browser
+```sh
+npm run typecheck
+npm run build
+npm start
+```
 
-## Content and contact behavior
+The production server runs at `http://localhost:3000`. To produce the static export used by Sites instead:
 
-AURA is the sample identity for this project. Madar, Sobh, and Rooyesh are design concepts, not real client commissions. The site does not invent client testimonials or performance statistics.
+```sh
+npm run build:static
+python3 -m http.server 4173 --directory out
+```
 
-The project form creates a text brief on the visitor's device. It does not send emails, submit requests to a server, or store contact details. To receive inquiries online, add a real contact destination and the appropriate submission service.
+Open `http://localhost:4173` to inspect the exported site. The static build sets `AURA_STATIC_EXPORT=1`, enabling Next.js static export to `out/`. `.openai/hosting.json` points Sites to that directory. Use `npm run build` before running `npm start`; a static export is served directly as files.
 
-The complete source is available as `aura-source.zip` on the published site.
+## Features and content
 
-## Structure
+- Studio introduction, four services, filterable concept projects, and accessible project dialogs
+- Mobile navigation, a collaboration process, and frequently asked questions
+- Scroll reveals, floating artwork, a moving text strip, and subtle card tilt
+- System reduced-motion support and a manual animation preference
+- Local fonts and illustrations
+- A validated project brief form with text download and clipboard support
 
-- `dist/index.html`: English content and page structure
-- `dist/styles.css`: visual design and responsive layout
-- `dist/app.js`: interactions and project brief form
-- `dist/assets/`: local fonts and SVG illustrations
-- `dist/aura-source.zip`: downloadable source archive
-- `.openai/hosting.json`: Sites publication configuration
+AURA is a sample company identity. Madar, Sobh, and Rooyesh are illustrative design concepts, not real client commissions. No client testimonials or performance statistics are claimed.
 
-The bundled Vazirmatn font by Saber Rastikerdar and contributors is distributed under the SIL Open Font License. Its license is included in `dist/assets/OFL.txt`.
+The form prepares an English brief on the visitor's device. It does not send email, submit inquiries, or store contact details. No backend or database is required. Add a real contact destination and submission service before using the form to receive inquiries.
+
+## Source and structure
+
+Both build commands run `npm run package:source`, which creates `public/aura-source.zip`. The archive is available at `/aura-source.zip` when the site is served and contains the project source, excluding dependencies, build output, and Git metadata. To refresh the download during development, run `npm run package:source` separately.
+
+- `app/`: App Router pages, layout, and global styles
+- `components/`: reusable server-rendered sections and client-side interactions
+- `public/assets/`: local fonts and SVG artwork
+- `scripts/package-source.mjs`: downloadable source packaging
+- `next.config.ts`: standard build and optional static export configuration
+- `.openai/hosting.json`: Sites identity and deployment configuration
+
+The project repository is [mphcfp/cfp-](https://github.com/mphcfp/cfp-).
+
+The bundled Vazirmatn font by Saber Rastikerdar and contributors is distributed under the SIL Open Font License; see `public/assets/OFL.txt`.
